@@ -12,7 +12,7 @@ if ($product_id != false && $category_id != false) {
     $statement = $db->prepare($query);
     $statement->bindValue(':product_id', $product_id);
     $success = $statement->execute();
-    $statement->closeCursor();    
+    $statement->closeCursor();
 }
 
 // Display the Product List page
