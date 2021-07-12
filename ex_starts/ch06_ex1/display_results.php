@@ -1,10 +1,10 @@
 <?php
     // get the data from the form
-    $investment = filter_input(INPUT_POST, 'investment', 
+    $investment = filter_input(INPUT_POST, 'investment',
             FILTER_VALIDATE_FLOAT);
-    $interest_rate = filter_input(INPUT_POST, 'interest_rate', 
+    $interest_rate = filter_input(INPUT_POST, 'interest_rate',
             FILTER_VALIDATE_FLOAT);
-    $years = filter_input(INPUT_POST, 'years', 
+    $years = filter_input(INPUT_POST, 'years',
             FILTER_VALIDATE_INT);
 
     // validate investment
@@ -18,7 +18,7 @@
         $error_message = 'Interest rate must be a valid number.'; }
     else if ( $interest_rate <= 0 ) {
         $error_message = 'Interest rate must be greater than zero.'; }
-        
+
     // validate years
     else if ( $years === NULL || $years === FALSE ) {
         $error_message = 'Number of years must be a valid whole number.'; }
@@ -38,7 +38,7 @@
     // calculate the future value
     $future_value = $investment;
     for ($i = 1; $i <= $years; $i++) {
-        $future_value += $future_value * $interest_rate; 
+        $future_value += $future_value * $interest_rate * 0.01;
     }
 
     // apply currency and percent formatting
