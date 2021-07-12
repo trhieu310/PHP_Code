@@ -1,11 +1,14 @@
 <?php
+
 // Start session management with a persistent cookie
-$lifetime = 60 * 60 * 24 * 14;    // 2 weeks in seconds
-session_set_cookie_params($lifetime, '/');
+$lifetime = 60 * 60 * 24 * 14;
+// session_set_cookie_params($lifetime, '/');
+// session_start();
 session_start();
+setcookie("cart12", "/", time()+$lifetime);
 
 // Create a cart array if needed
-if (empty($_SESSION['cart'])) { $_SESSION['cart'] = array(); }
+if (empty($_SESSION['cart12'])) { $_SESSION['cart12'] = array(); }
 
 // Create a table of products
 $products = array();
@@ -52,5 +55,22 @@ switch($action) {
         unset($_SESSION['cart12']);
         include('cart_view.php');
         break;
+
+    case 'end_session':
+        $_SESSION = array();
+        session_destroy();
+
+        $name = session_name();
+        $expire = strtotime('-1 year');
+        $params = session_get_cookie_params();
+        $path = $params['path'];
+        $domain = $params['domain'];
+        $secure = $params['secure'];
+        $httponly = $params['httponly'];
+        setcookie($name, '', $expire, $path, $domain, $secure, $httponly);
+
+        include('cart_view.php');
+        break;
 }
+
 ?>

@@ -1,5 +1,5 @@
-<!DOCTYP">
-<htm">
+<!DOCTYP html>
+<html">
 <head>
     <title>My Guitar Shop</title>
     <link rel="stylesheet" type="text/css" href="main.css">
@@ -61,6 +61,8 @@
         <?php endif; ?>
         <p><a href=".?action=show_add_item">Add Item</a></p>
         <p><a href=".?action=empty_cart">Empty Cart</a></p>
+        <p><a href=".?action=end_session">End Session and Delete Cookie</a></p>
+        <p>Session ID: <?php echo session_id(); ?></p>
 
     </main>
 </body>

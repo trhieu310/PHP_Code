@@ -47,4 +47,5 @@ function get_subtotal () {
     $subtotal_f = number_format($subtotal, 2);
     return $subtotal_f;
 }
+
 ?>
