@@ -33,9 +33,11 @@ switch ($action) {
 
         $is_valid = true;
         for ($i = 0; $i < count($scores); $i++){
-            $scores_string = 'You must enter three valid numbers for scores.';
-            $is_valid = false;
-            break;
+            if (empty($scores[$i]) || !is_numeric($scores[$i])) {
+                $scores_string = 'You must enter three valid numbers for scores.';
+                $is_valid = false;
+                break;
+            }
         }
         if (!$is_valid) {
             break;
