@@ -64,8 +64,8 @@ class Product {
         $discount_percent = $this->getDiscountPercent() / 100;
         $discount_amount = $this->price * $discount_percent;
         $discount_amount_r = round($discount_amount, 2);
-        $discount_amount_f = number_format($discount_amount_r, 2);
-        return $discount_amount_f;
+        // $discount_amount_f = number_format($discount_amount_r, 2);
+        return $discount_amount;
     }
 
     public function getDiscountPrice() {
