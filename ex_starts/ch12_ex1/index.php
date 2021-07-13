@@ -2,8 +2,7 @@
 
 // Start session management with a persistent cookie
 $lifetime = 60 * 60 * 24 * 14;
-// session_set_cookie_params($lifetime, '/');
-// session_start();
+// session_set_cookie_params($lifetime, '/');got
 session_start();
 setcookie("cart12", "/", time()+$lifetime);
 
