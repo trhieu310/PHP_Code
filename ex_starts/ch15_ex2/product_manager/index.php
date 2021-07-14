@@ -5,6 +5,15 @@ require('../model/category_db.php');
 require('../model/product.php');
 require('../model/product_db.php');
 
+require('../model/fields.php');
+require('../model/validate.php');
+
+$validate = new Validate();
+$fields = $validate->getFields();
+$fields->addField('code', 'Must be less than 11 character.');
+$fields->addField('name', 'Must be less than 11 character.');
+$fields->addField('price', 'Must be a valid number.');
+
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -15,7 +24,7 @@ if ($action == NULL) {
 
 if ($action == 'list_products') {
     // Get the current category ID
-    $category_id = filter_input(INPUT_GET, 'category_id', 
+    $category_id = filter_input(INPUT_GET, 'category_id',
             FILTER_VALIDATE_INT);
     if ($category_id == NULL || $category_id == FALSE) {
         $category_id = 1;
@@ -30,9 +39,9 @@ if ($action == 'list_products') {
     include('product_list.php');
 } else if ($action == 'delete_product') {
     // Get the IDs
-    $product_id = filter_input(INPUT_POST, 'product_id', 
+    $product_id = filter_input(INPUT_POST, 'product_id',
             FILTER_VALIDATE_INT);
-    $category_id = filter_input(INPUT_POST, 'category_id', 
+    $category_id = filter_input(INPUT_POST, 'category_id',
             FILTER_VALIDATE_INT);
 
     // Delete the product
@@ -41,18 +50,28 @@ if ($action == 'list_products') {
     // Display the Product List page for the current category
     header("Location: .?category_id=$category_id");
 } else if ($action == 'show_add_form') {
+
+    $code = '';
+    $name = '';
+    $price = '';
+
     $categories = CategoryDB::getCategories();
     include('product_add.php');
 } else if ($action == 'add_product') {
-    $category_id = filter_input(INPUT_POST, 'category_id', 
+    $category_id = filter_input(INPUT_POST, 'category_id',
             FILTER_VALIDATE_INT);
     $code = filter_input(INPUT_POST, 'code');
     $name = filter_input(INPUT_POST, 'name');
-    $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
-    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
-            $name == NULL || $price == NULL || $price == FALSE) {
-        $error = "Invalid product data. Check all fields and try again.";
-        include('../errors/error.php');
+    $price = filter_input(INPUT_POST, 'price');
+
+    $validate->text('code', $code, true, 11, 255);
+    $validate->text('name', $name, true, 11, 255);
+    $validate->number('price', $price);
+
+    // Load appropriate view based on hasErrors
+    if ($fields->hasErrors()) {
+        $categories = CategoryDB::getCategories();
+        include 'product_add.php';
     } else {
         $current_category = CategoryDB::getCategory($category_id);
         $product = new Product($current_category, $code, $name, $price);

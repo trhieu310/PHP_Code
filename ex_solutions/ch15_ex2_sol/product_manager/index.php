@@ -25,7 +25,7 @@ if ($action == NULL) {
 
 if ($action == 'list_products') {
     // Get the current category ID
-    $category_id = filter_input(INPUT_GET, 'category_id', 
+    $category_id = filter_input(INPUT_GET, 'category_id',
             FILTER_VALIDATE_INT);
     if ($category_id == NULL || $category_id == FALSE) {
         $category_id = 1;
@@ -40,9 +40,9 @@ if ($action == 'list_products') {
     include('product_list.php');
 } else if ($action == 'delete_product') {
     // Get the IDs
-    $product_id = filter_input(INPUT_POST, 'product_id', 
+    $product_id = filter_input(INPUT_POST, 'product_id',
             FILTER_VALIDATE_INT);
-    $category_id = filter_input(INPUT_POST, 'category_id', 
+    $category_id = filter_input(INPUT_POST, 'category_id',
             FILTER_VALIDATE_INT);
 
     // Delete the product
@@ -54,13 +54,13 @@ if ($action == 'list_products') {
     $code = '';
     $name = '';
     $price = '';
-    
+
     $categories = CategoryDB::getCategories();
     include('product_add.php');
 } else if ($action == 'add_product') {
 
     // Get form data
-    $category_id = filter_input(INPUT_POST, 'category_id', 
+    $category_id = filter_input(INPUT_POST, 'category_id',
             FILTER_VALIDATE_INT);
     $code = filter_input(INPUT_POST, 'code');
     $name = filter_input(INPUT_POST, 'name');

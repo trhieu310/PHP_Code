@@ -105,12 +105,12 @@ namespace Register {
 
             // Use filter_var method to validate the email address
             $email = filter_var($value, FILTER_VALIDATE_EMAIL);
-            
+
             // If email address is not valid, set error message and exit
             if ($email === false) {
                 $field->setErrorMessage("Invalid email address");
             } else {
-                $field->clearErrorMessage();                
+                $field->clearErrorMessage();
             }
         }
 
@@ -130,8 +130,7 @@ namespace Register {
             $charClasses[] = '[:digit:]';
             $charClasses[] = '[:upper:]';
             // $charClasses[] = '[:lower:]';    // Don't require any lowercase letters
-            // $charClasses[] = '_-';     // Don't require any special characters
-
+            // $charClasses[] = '_-';     // Don't require any special character
             $pw = '/^';
             $valid = '[';
             foreach($charClasses as $charClass) {
@@ -178,7 +177,7 @@ namespace Register {
                 'VT', 'VA', 'WA', 'WV', 'WI', 'WY');
             $states = implode('|', $states);
             $pattern = '/^(' . $states . ')$/';
-            $this->pattern($name, $value, $pattern, 
+            $this->pattern($name, $value, $pattern,
                     'Invalid state.', $required);
         }
 
@@ -249,7 +248,7 @@ namespace Register {
                 $field->setErrorMessage('Invalid card number length.');
                 return;
             }
-            
+
             // Check prefix
             $prefixes = explode(',', $prefixes);
             $rangePattern = '/^[[:digit:]]+-[[:digit:]]+$/';

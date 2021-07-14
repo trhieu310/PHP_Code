@@ -15,8 +15,8 @@
         <br>
 
         <label>Code:</label>
-        <input type="input" name="code" 
-               value="<?php echo htmlspecialchars($code);?>">
+        <input type="input" name="code"
+               value="<?php  echo htmlspecialchars($code);?>">
         <?php echo $fields->getField('code')->getHTML(); ?>
         <br>
 

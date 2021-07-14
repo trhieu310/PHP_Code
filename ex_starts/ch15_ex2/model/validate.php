@@ -11,8 +11,7 @@ class Validate {
     }
 
     // Validate a generic text field
-    public function text($name, $value,
-            $required = true, $min = 1, $max = 255) {
+    public function text($name, $value, $required = true, $min = 1, $max = 255) {
 
         // Get Field object
         $field = $this->fields->getField($name);
@@ -36,8 +35,7 @@ class Validate {
     }
 
     // Validate a field with a generic pattern
-    public function pattern($name, $value, $pattern, $message,
-            $required = true) {
+    public function pattern($name, $value, $pattern, $message, $required = true) {
 
         // Get Field object
         $field = $this->fields->getField($name);
@@ -57,6 +55,43 @@ class Validate {
         } else {
             $field->clearErrorMessage();
         }
+    }
+
+    public function number($name, $value, $required = true) {
+
+        $field = $this -> fields -> getField($name);
+
+        $this -> text($name, $value, $required);
+        if ($field -> hasError()) { return; }
+
+        if(!is_numeric($value)) {
+            $field -> setErrorMessage("Must be a valid number.");
+        } else {
+            $field -> clearErrorMessage();
+        }
+    }
+
+    public function code($name, $value, $required = true) {
+
+        $field = $this -> fields -> getField($name);
+
+        $this -> text($name, $value, $required);
+        if ($field -> hasError()) { return; }
+
+    }
+
+    public function name($name, $value, $required = true) {
+
+        $field = $this -> fields -> getField($name);
+
+        $this -> text($name, $value, $required);
+        if ($field -> hasError()) return;
+
+        if (!$required && empty($value)) {
+            $field->clearErrorMessage();
+            return;
+        }
+
     }
 
     public function phone($name, $value, $required = false) {
