@@ -64,8 +64,8 @@ if ($action == 'list_products') {
     $name = filter_input(INPUT_POST, 'name');
     $price = filter_input(INPUT_POST, 'price');
 
-    $validate->text('code', $code, true, 11, 255);
-    $validate->text('name', $name, true, 11, 255);
+    $validate->text('code', $code, true, 1, 10);
+    $validate->text('name', $name, true, 1, 10);
     $validate->number('price', $price);
 
     // Load appropriate view based on hasErrors
