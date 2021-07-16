@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <input type="hidden" name="idTL" value="<?php echo $_GET['idTL'];?>" />
+                        <input type="hidden" name="idTL" value="<?php echo filter_input(INPUT_GET, 'idTL');?>" />
                         <input type="submit" name="Sua" value="Sua" />
                     </td>
                     <td>
@@ -80,30 +80,29 @@
                 $anhminhhoa_tmp=$_FILES['image']['tmp_name'];
                 if(isset($_GET['idTL']))
                 {
-                    $sql="select icon from theloai where idTL=".$_GET['idTL'];
+                    $sql="select icon from theloai where idTL=".filter_input(INPUT_GET, 'idTL');
                 }
                 // $results = mysqli_query($connect,$sl);
                 // $d = mysqli_fetch_array($results);
-                $error_message = "Them that bai!!!";
                 $statement = $db -> prepare($sql);
                 $statement -> execute();
                 $result = $statement -> fetch();
                 $statement -> closeCursor();
                 if($result['icon']!=$icon)
                 {
+                    unlink('../image/'.$result['icon']);
                     move_uploaded_file($anhminhhoa_tmp,"../image/".$icon);
-                    unlink('admin/image/n.png');
                 }
             }
             $tam="";
-            if(isset($_POST["TenTL"]))	$theloai = $_POST['TenTL'];
-            if(isset($_POST["ThuTu"]))	$thutu = $_POST['ThuTu'];
-            if(isset($_POST["AnHien"]))	$an= $_POST['AnHien'];
+            if(isset($_POST["TenTL"]))	$theloai = filter_input(INPUT_POST, 'TenTL');
+            if(isset($_POST["ThuTu"]))	$thutu =  filter_input(INPUT_POST, 'ThuTu');
+            if(isset($_POST["AnHien"]))	$an=  filter_input(INPUT_POST, 'AnHien');
             if (isset($_POST['Sua']))
             {
                 if(isset($_GET["idTL"]))
                 {
-                    $key = $_GET["idTL"];
+                    $key =  filter_input(INPUT_POST, "idTL");
                 }
 
                 if($icon=="")
@@ -114,7 +113,14 @@
                 {
                     $sl="update theloai set TenTL='$theloai',ThuTu='$thutu',AnHien='$an',icon='$icon' where idTL ='$key'";
                 }
-                if($result > 0)
+
+                $error_message = "Sua that bai!!!";
+                $statement1 = $db -> prepare($sl);
+                $statement1 -> execute();
+                $rs = $statement1;
+                $statement1 -> closeCursor();
+
+                if($rs == true)
                 {
                     echo "<script language='javascript'>alert('sua thanh cong');";
                     echo "location.href='theloai.php';</script>";

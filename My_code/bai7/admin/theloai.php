@@ -43,7 +43,12 @@
                                             }
                                             ?>
                 </td>
-                <td><img src="image/<?php $value['icon']?>" width="40px" height="40px" /></td>
+                <td>
+                    <?php echo $value['icon'];
+                        $data = $value['icon'];
+                    ?>
+                    <img src="image/<?php echo $data?>" width="40px" height="40px" />
+                </td>
                 <td>
                     <a href="theloai_sua.php?idTL=<?php echo $value['idTL'];?>">Sua</a>
                 </td>
