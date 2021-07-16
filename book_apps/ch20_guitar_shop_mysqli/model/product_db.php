@@ -63,7 +63,7 @@ function update_product($product_id, $code, $name, $description,
     if ($statement == false) {
         display_db_error($db->error);
     }
-    $statement->bind_param("isssddi", $category_id, $code, $name, 
+    $statement->bind_param("isssddi", $category_id, $code, $name,
             $description, $price, $discount_percent, $product_id);
     $success = $statement->execute();
     if ($success) {
