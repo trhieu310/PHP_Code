@@ -15,20 +15,6 @@
         $item .= '</item>';
     }
 
-    // echo'<?xml version="1.0"
-    // <rss version="2.0"> -->
-     //     <channel> -->
-     //         <title>Học Web | Học làm web pro</title>
-    //         <link>http://hocweb.com.vn</link>
-    //         <description>Website hocweb.com.vn được hình thành từ ý tưởng
-    //             giúp các em sinh viên trường đại học công nghiệp thực phẩm có 1
-    //             nơi học tập thực tế gắn với nhu cầu doanh nghiệp từ đó lan rộng
-    //             ra mô hình học tập thực tế cùng doanh nghiệp cho các sinh viên
-    //             trong các tỉnh thành </description>
-    //         $item -->
-     //     </channel> -->
-     // </rss>'; -->
-
     echo('<?xml version="1.0" ?>');
     echo('<rss version="2.0">');
     echo("<channel>");
