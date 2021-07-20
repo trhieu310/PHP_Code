@@ -22,11 +22,12 @@ if(isset($_POST['submit'])){
 		<p>Please enter the captcha:</p>
 		<input type="text" name="input"><img src="captcha.php" title="" alt="" /><br />
 		<input type="submit" name="submit" value="Send">
-		<p id="message"><?php if(isset($_SESSION['message'])){
+		<p id="message">
+            <?php if(isset($_SESSION['message'])){
 			echo $_SESSION['message'];
 			unset($_SESSION['message']);
-		} ?></p>
-
+		    } ?>
+        </p>
 	</form>
 </body>
 </html>
